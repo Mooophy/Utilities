@@ -11,10 +11,10 @@ namespace Utilities
             var targets = new DirectoryInfo(to).GetFiles();
             var filesToCopy = new DirectoryInfo(from)
                 .GetFiles()
-                .Where(s => targets.Any(t => t.Name == s.Name) && targets.First(t => t.Name == s.Name).LastWriteTime < s.LastWriteTime)
+                .Where(f => targets.Any(t => t.Name == f.Name) && targets.First(t => t.Name == f.Name).LastWriteTime < f.LastWriteTime)
                 .ToList();
             filesToCopy
-                .ForEach(s => File.Copy(s.FullName, Path.Combine(to, s.Name), true));
+                .ForEach(f => File.Copy(f.FullName, Path.Combine(to, f.Name), true));
             return filesToCopy.Select(f => f.Name);
         }
     }
